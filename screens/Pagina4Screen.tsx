@@ -1,43 +1,17 @@
-import { Alert, Button, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import datos from '../assets/data/ApiList.json';
+import Tarjeta from '../components/Tarjeta';
 
 export default function Pagina4Screen() {
-  const [kelvin, setKelvin] = useState('');
-  const [celsius, setCelsius] = useState(0);
-  const [fahrenheit, setFahrenheit] = useState(0);
-
-  useEffect(() => {
-    const kelvinValue = parseFloat(kelvin);
-    if (kelvinValue < 0) {
-      setKelvin('0');
-    } else {
-      setCelsius(kelvinValue - 273.15);
-      setFahrenheit((kelvinValue - 273.15) * 9 / 5 + 32);
-    }
-  }, [kelvin]);
-
-  function showResults() {
-    Alert.alert(
-      'Resultados',
-      `Kelvin: ${kelvin}K\nCelsius: ${celsius.toFixed(2)}°C\nFahrenheit: ${fahrenheit.toFixed(2)}°F`
-    );
-  }
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Convertidor de Temperatura</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Ingresar grados Kelvin"
-        keyboardType="numeric"
-        onChangeText={(texto) => setKelvin(texto)}
-        value={kelvin}
+      <Text style={styles.title}>App List</Text>
+      <FlatList
+        data={datos}
+        renderItem={({ item }) => <Tarjeta informacion={item} />}
+        contentContainerStyle={styles.listContainer} 
       />
-
-      <TouchableOpacity style={styles.button} onPress={showResults}>
-        <Text style={styles.buttonText}>Convertir</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -45,49 +19,17 @@ export default function Pagina4Screen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f4f4f4',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
+    backgroundColor: '#f4f4f4', 
+    padding: 10,
   },
   title: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 20,
+    color: '#333', 
     textAlign: 'center',
+    marginVertical: 20, 
   },
-  input: {
-    backgroundColor: '#fff',
-    fontSize: 20,
-    height: 50,
-    width: '85%',
-    marginBottom: 15,
-    paddingHorizontal: 15,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-    elevation: 5,
-  },
-  buttonText: {
-    fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold',
-    textAlign: 'center',
+  listContainer: {
+    paddingBottom: 20, 
   },
 });
