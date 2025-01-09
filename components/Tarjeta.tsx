@@ -5,17 +5,17 @@ export default function Tarjeta( props : any ) {
     //console.log(props.informacion.name);
 
     function detalles(item:any){
-      Alert.alert( item.titulo , item.anio )
+      Alert.alert( item.name , item.description + '\n  \nAtributos: \n'+ item.atributos)
     }
   return (
     <TouchableOpacity style={styles.container} onPress={ ()=> detalles(props.informacion) }>
-      <Text style={styles.txtTitulo}>{props.informacion.name}</Text>
+      <Text style={styles.txtTitulo}>{props.informacion.titulo}</Text>
       <View style={styles.fila}>
       <Image 
       source={{uri: props.informacion.image}}
       style={styles.img}/>
       <Text style={styles.txtDescripcion}>
-        {props.informacion.description}
+        {props.informacion.descripcion}
       </Text>
       </View>
     </TouchableOpacity>
